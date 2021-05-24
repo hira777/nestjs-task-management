@@ -1,0 +1,15 @@
+version: "3"
+# サービス（アプリケーションの構成要素）
+services:
+  db:
+    image: postgres:11-alpine
+    volumes:
+      # postgres のデータを永続化する
+      - ./postgresql:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASS}
+    # DB クライアントツールから接続できるようにする
+    ports:
+      - 15432:5432
