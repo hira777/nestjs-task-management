@@ -1,5 +1,5 @@
-import { TaskStatus } from '../task.model';
+import { TaskStatus } from '../task-status.enum';
 
 export class UpdateTaskStatusDto {
-  status: keyof typeof TaskStatus;
+  status: TaskStatus;
 }
