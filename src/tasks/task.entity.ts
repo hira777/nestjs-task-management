@@ -1,4 +1,12 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Exclude } from 'class-transformer';
+import { User } from 'src/auth/user.entity';
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { TaskStatus } from './task-status.enum';
 
 @Entity()
@@ -16,4 +24,10 @@ export class Task extends BaseEntity {
 
   @Column()
   status: TaskStatus;
+
+  @ManyToOne(() => User, (user) => user.tasks, { eager: false })
+  // TransformInterceptor でレスポンスを classToPlain(data) のように実行しており、
+  // toPlainOnly: true にしているので、user プロパティはレスポンスから除外される。
+  @Exclude({ toPlainOnly: true })
+  user: User;
 }
