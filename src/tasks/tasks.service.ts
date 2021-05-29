@@ -49,19 +49,17 @@ export class TasksService {
       throw new NotFoundException(`Task with ID "${id}" not found`);
     }
   }
-  // updateTaskStatus(id: string, updateTaskStatusDto: UpdateTaskStatusDto): Task {
-  //   const { status } = updateTaskStatusDto;
-  //   this.tasks = this.tasks.map((task) => {
-  //     if (task.id !== id) {
-  //       return task;
-  //     }
-  //     return {
-  //       ...task,
-  //       ...{
-  //         status,
-  //       },
-  //     };
-  //   });
-  //   return this.getTaskById(id);
-  // }
+
+  async updateTaskStatus(
+    id: string,
+    updateTaskStatusDto: UpdateTaskStatusDto,
+  ): Promise<Task> {
+    const { status } = updateTaskStatusDto;
+    const task = await this.getTaskById(id);
+
+    task.status = status;
+    await this.taskRepository.save(task);
+
+    return task;
+  }
 }
