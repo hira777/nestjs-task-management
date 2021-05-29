@@ -16,7 +16,7 @@ export class TasksService {
   // getAllTasks(): Task[] {
   //   return this.tasks;
   // }
-  async getTaskById(id: number): Promise<Task> {
+  async getTaskById(id: string): Promise<Task> {
     const found = await this.taskRepository.findOne(id);
 
     if (!found) {
