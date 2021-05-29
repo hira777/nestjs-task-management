@@ -7,7 +7,8 @@ export class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
+  // unique: true で重複を許可しない
+  @Column({ unique: true })
   username: string;
 
   @Column()
